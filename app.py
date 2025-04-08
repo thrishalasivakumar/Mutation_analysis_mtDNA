@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 
 # Load reference wild-type sequence
-with open("originalmtdna/original_mtdna.fasta", "r") as f:
+with open("original_mtDNA/original_mtdna.fasta", "r") as f:
     wild_seq = "".join(line.strip() for line in f if not line.startswith(">"))
 
 print(f"✅ Wild-type sequence loaded. First 50 bases: {wild_seq[:50]}...\n")
