@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mtDNA Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #17a2b8;
+        }
+        .section {
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        .important {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 5px solid #ffc107;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔬 mtDNA Mutation & Disease Prediction Results</h1>
+
+    <div class="section">
+        <h2>🌍 Global Alignment Result</h2>
+        <p><strong>Alignment Score:</strong> {{ global_score }}</p>
+        <pre><strong>Wild-type:</strong> {{ aligned_seq1 }}</pre>
+        <pre><strong>Mutated :</strong> {{ aligned_seq2 }}</pre>
+    </div>
+
+    <div class="section">
+        <h2>🧬 Local Alignment per Gene Region</h2>
+        {% for locus, result in local_results.items() %}
+            <h3>📍 Locus: {{ locus }}</h3>
+            <p><strong>Score:</strong> {{ result.score }}</p>
+            <pre><strong>Ref:</strong> {{ result.aligned_seq1 }}</pre>
+            <pre><strong>Mut:</strong> {{ result.aligned_seq2 }}</pre>
+            {% if result.mutations %}
+                <p><strong>Mutations Detected:</strong></p>
+                <ul>
+                    {% for mutation in result.mutations %}
+                        <li>{{ mutation }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No mutations detected in this region.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h2>📋 All Detected Mutations</h2>
+        {% if all_mutations %}
+            <ul>
+                {% for mutation in all_mutations %}
+                    <li>{{ mutation }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No mutations were detected.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>🦠 Predicted Diseases Based on Mutations</h2>
+        {% if predicted_diseases %}
+            <ul>
+                {% for disease in predicted_diseases %}
+                    <li>📌 {{ disease }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="important">
+                <p>⚠️ No known diseases were associated with the detected mutations in the database.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

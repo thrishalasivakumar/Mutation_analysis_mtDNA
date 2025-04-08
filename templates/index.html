@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mtDNA Sequence Alignment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 mtDNA Sequence Alignment & Disease Prediction</h1>
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="usersequence">Upload your FASTA file (Mutated mtDNA Sequence):</label>
+            <input type="file" name="usersequence" id="usersequence" required>
+
+            <button type="submit">Align Sequence</button>
+
+            {% if result %}
+                <h2>Alignment Result:</h2>
+                <pre>{{ result }}</pre>
+            {% endif %}
+
+            {% if error %}
+                <h2 style="color: red;">Error:</h2>
+                <p>{{ error }}</p>
+            {% endif %}
+            {% if prediction %}
+                <h2>Prediction Result:</h2>
+                <p>{{ prediction }}</p>
+            {% endif %}
+                
+        </form>
+    </div>
+
+</body>
+</html>
