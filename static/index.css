@@ -1,0 +1,328 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e4f2ea;
+    color: #333;
+    padding: 0px;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 30px;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Winky Sans', sans-serif;
+    color: #002145;
+    margin-bottom: 30px;
+    font-size: 3.5rem;
+    word-spacing: 7px;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.info-text {
+    flex: 1.5;
+    margin-right: 20px;
+}
+
+.info-text h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-family: 'Winky Sans', sans-serif;
+    color: #450027;
+}
+
+.info-text ul,.disease-text ul {
+    list-style-type: none;
+}
+
+.info-text ul li , .disease-text ul li {
+    margin-bottom: 9px;
+    margin-left: -40px;
+    margin-right: 50px;
+}
+
+.info-text p,
+.info-text ul li , .disease-text ul li {
+    font-size: 22px;
+    line-height: 2;
+    text-align: justify;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.info-images {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.info-image {
+    margin-top: 30px;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.upload-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #97d3cd;
+    opacity: 0.9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    margin-top: 70px;
+    margin-left: 150px;
+    text-align: center;
+}
+
+.upload-text {
+    flex: 1.8;
+    margin-right: 0px;
+}
+
+.upload-text h2 {
+    font-size: 2rem;
+    color: #002145;
+    margin-bottom: 20px;
+    font-family: 'Winky Sans', sans-serif;
+}
+
+.upload-text label {
+    font-size: 20px;
+    font-weight: 100;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.upload-text input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 5px;
+    background-color: #2d5652;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    width: 150px;
+    justify-content: center;
+    margin: 0 auto; /* Center the button horizontally */
+    display: block; /* Ensure the button takes up block-level space */
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.file-name {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.upload-text button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #0c2c47;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.upload-text button:hover {
+    background-color: #0056b3;
+}
+
+.upload-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 10px; /* Reduced margin-left to reduce the gap */
+}
+
+.vector-image {
+    max-width: 100%;
+    height: 250px;
+    border-radius: 8px;
+}
+
+.neurological-section h2 {
+    text-align: center;
+    font-family: 'Winky Sans', sans-serif;
+    color: #450027;
+    margin-top: 50px;
+    font-size: 2.5rem;
+}
+
+.disease-container {
+    position: relative;
+    background-color: #eeeae6;
+    padding: 5px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 100%;
+}
+
+.disease-slideshow {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.disease-slide {
+    display: none;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.disease-slide.active {
+    display: flex;
+}
+
+.disease-image img {
+    padding: 20px;
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.disease-text {
+    flex: 1;
+    padding: 20px;
+    text-align: justify;
+}
+
+.disease-text h3 {
+    font-size: 1.8rem;
+    color: #450027;
+    margin-bottom: 10px;
+}
+
+.disease-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background-color: #e4f2ea;
+    color: #002145;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    padding: 10px;
+    font-size: 2rem;
+    z-index: 8; /* Ensure the arrows are above other elements */
+    width: 40px; /* Adjust width for better appearance */
+    height: 40px; /* Adjust height for better appearance */
+    
+}
+
+.prev {
+    left: -50px;
+}
+
+.next {
+    right: -50px;
+}
+
+.dots {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #450027;
+}
+
+.prev i, .next i {
+    position: absolute;
+    bottom: -20px; /* Move the arrow mark up */
+}
+
+.prev:hover, .next:hover {
+    background-color: #e4f2ea; /* Change background color on hover */
+    border-radius: 0; /* Remove the round shape on hover */
+}

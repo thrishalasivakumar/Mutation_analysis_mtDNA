@@ -2,71 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>mtDNA Sequence Alignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutation Analysis on mtDNA</title>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Import Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+Z73e1z5q5V5V5V5V5V5V5" crossorigin="anonymous">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f8fb;
-            color: #333;
-            padding: 40px;
+        .slideshow-container {
+            position: relative;
+            max-width: 500px;
+            margin: 65px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-        h1 {
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 30px;
-        }
-        label {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        input[type="file"] {
-            margin-top: 10px;
-            padding: 10px;
+
+        .slideshow-image {
+            display: none;
             width: 100%;
+            height: 300px;
         }
-        button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #777;
-            font-size: 0.9rem;
+
+        .slideshow-image.active {
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔬 mtDNA Sequence Alignment & Disease Prediction</h1>
+        <h1>🔬 Mutation Analysis in mtDNA</h1>
 
-        <form action="/" method="post" enctype="multipart/form-data">
-            <label for="usersequence">Upload your FASTA file (Mutated mtDNA Sequence):</label>
-            <input type="file" name="usersequence" id="usersequence" required>
+        <!-- Information section -->
+        <div class="info-container">
+            <div class="info-text">
+                <h2>What is Mitochondrial DNA?</h2>
+                <p>
+                    Mitochondrial DNA (mtDNA) is a small, circular strand of DNA found in the mitochondria, the energy-producing parts of the cell. Unlike most DNA, which is located in the cell’s nucleus, mtDNA exists outside the nucleus and is inherited exclusively from the mother. <br> <br> Although it contains far fewer genes than nuclear DNA, mtDNA plays a vital role in the production of proteins and enzymes that help generate energy. Its unique location and inheritance pattern make it especially important in the study of genetic disorders, maternal ancestry, and human evolution.
+                </p>
+            </div>
+            <div class="info-images">
+                <!-- Static image instead of slideshow -->
+                <img src="{{ url_for('static', filename='assets/mtdna/1.jpg') }}" alt="Mitochondrial DNA" class="info-image" height="400px">
+            </div>
+        </div>
 
-            <button type="submit">Align Sequence</button>
+        <!-- Significance section -->
+        <div class="info-container">
+            <div class="info-text">
+                <h2>Significance of mtDNA</h2>
+                <ul>
+                    <li>🔬 mtDNA is widely used in genetic and medical research.</li>
+                    <li>👩‍👧 It is inherited only from the mother, not from both.</li>
+                    <li>🌍 Helps scientists study human evolution and migration patterns.</li>
+                    <li>⚡ Mutations in mtDNA can lead to diseases related to energy production in cells, especially neurological disorders.</li>
+                    <li>🧬 Used in forensic science and population genetics to identify individuals and explore genetic diversity.</li>
+                </ul>
+            </div>
+            <div class="info-images">
+                <img src="{{ url_for('static', filename='assets/mtdna/3.jpg') }}" alt="Significance of mtDNA" class="info-image" height="400px" width="500px">
+            </div>
+        </div>
 
-            {% if result %}
-                <h2>Alignment Result:</h2>
-                <pre>{{ result }}</pre>
-            {% endif %}
+        <!-- Upload form section -->
+        <div class="upload-container">
+            <div class="upload-text">
+                <h2>Analyse the mutations in mtDNA now</h2>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <label for="usersequence" class="custom-file-upload">
+                        <i class="fas fa-upload"></i> Choose File
+                    </label>
+                    <input type="file" name="usersequence" id="usersequence" required onchange="showFileName(this)">
+                    <div id="file-name" class="file-name">No file chosen</div>
+                    <button type="submit"><i class="fas fa-upload"></i> Align Sequence</button>
+
+                    {% if result %}
+                    <h2>Alignment Result:</h2>
+                    <pre>{{ result }}</pre>
+                    {% endif %}
 
             {% if error %}
                 <h2 style="color: red;">Error:</h2>
@@ -76,9 +91,176 @@
                 <h2>Prediction Result:</h2>
                 <p>{{ prediction }}</p>
             {% endif %}
-                
-        </form>
+                </form>
+            </div>
+            <div class="upload-image">
+                <img src="{{ url_for('static', filename='assets/mtdna/upload.png') }}" alt="Upload Vector" class="vector-image">
+            </div>
+        </div>
+
+        <!-- Why mtDNA section -->
+        <div class="info-container">
+            <div class="info-images">
+                <img src="{{ url_for('static', filename='assets/mtdna/why.png') }}" alt="Why mtDNA" class="info-image" height="320px" width="400px">
+            </div>
+            <div class="info-text">
+                <h2>Why mtDNA?</h2>
+                <ul>
+  <li>🧬 mtDNA has a <strong>mutation rate ~10 times higher</strong> than nuclear DNA.</li>
+  <li>🧠 Mutations in mtDNA are linked to <strong>neurodegenerative diseases</strong> like LHON, Melas, and Leigh syndrome.</li>
+  <li>🔍 There are <strong>limited tools and studies</strong> available for detailed mtDNA mutation analysis.</li>
+  <li>💡 This project offers a <strong>simple platform to explore mtDNA mutations by using graphs and sequence alignment</strong>.</li>
+</ul>
+
+            </div>
+        </div>
+
+        <!-- Neurological Disorders section -->
+        <div class="neurological-section">
+            <h2>Neurological Disorders</h2>
+            <div class="disease-container">
+                <div class="disease-slideshow">
+                    <!-- Slide 1 -->
+                    <div class="disease-slide active">
+                        <div class="disease-image">
+                            <img src="{{ url_for('static', filename='assets/diseases/LHON.jpg') }}" alt="LHON">
+                        </div>
+                        <div class="disease-text">
+                            <h3>LHON (Leber's Hereditary Optic Neuropathy)</h3>
+                            <ul>
+                                <li>🧬 LHON is a maternally inherited mitochondrial disease caused by mutations in mtDNA.</li>
+                                <li>👁️ It leads to sudden, painless vision loss in young adults, often affecting both eyes.</li>
+                                <li>👦 Males are more commonly affected, usually in their 20s or 30s.</li>
+                                <li>🧪 Diagnosis involves eye and genetic tests; treatments are limited but research is ongoing.</li>
+                              </ul>
+                              
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="disease-slide">
+                        <div class="disease-image">
+                            <img src="{{ url_for('static', filename='assets/diseases/leigh.png') }}" alt="Leigh Syndrome">
+                        </div>
+                        <div class="disease-text">
+                            <h3>Leigh Syndrome</h3>
+                            <ul>
+                                <li>🧬 Leigh syndrome is a rare genetic disorder affecting energy production in cells.</li>
+                                <li>🧠 It causes progressive damage to the central nervous system and motor functions.</li>
+                                <li>👶 Symptoms appear in infancy or childhood, such as poor muscle control and breathing issues.</li>
+                                <li>⚕️ No cure exists, but supportive care can ease symptoms; early diagnosis is vital.</li>
+                            </ul>
+                            
+                              
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="disease-slide">
+                        <div class="disease-image">
+                            <img src="{{ url_for('static', filename='assets/diseases/merrf.jpg') }}" alt="MERRF">
+                        </div>
+                        <div class="disease-text">
+                            <h3>MERRF (Myoclonic Epilepsy with Ragged Red Fibers)</h3>
+                            <ul>
+                                <li>🧬 MERRF is caused by mutations in mitochondrial DNA, commonly the MT-TK gene, disrupting energy production in cells.</li>
+                                <li>⚡ It includes muscle twitches (myoclonus), seizures, and progressive muscle weakness.</li>
+                                <li>🧠 Patients may develop balance issues, dementia, and coordination problems over time.</li>
+                                <li>🔬 Muscle biopsy shows ragged red fibers – abnormal muscle cells with clumps of mitochondria.</li>
+                              </ul>
+                              
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="disease-slide">
+                        <div class="disease-image">
+                            <img src="{{ url_for('static', filename='assets/diseases/melas.jpg') }}" alt="MELAS">
+                        </div>
+                        <div class="disease-text">
+                            <h3>MELAS (Mitochondrial Encephalomyopathy, Lactic Acidosis, and Stroke-like Episodes)</h3>
+                            <ul>
+                                <li>🧬 MELAS is a mitochondrial disorder caused by mtDNA mutations affecting energy production.</li>
+                                <li>🧠 Key symptoms include stroke-like episodes, seizures, and cognitive decline.</li>
+                                <li>💪 Muscle weakness and lactic acid buildup are common signs.</li>
+                                <li>⚕️ Treatment is supportive, aiming to manage symptoms and prevent complications.</li>
+                            </ul>
+                              
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="disease-slide">
+                        <div class="disease-image">
+                            <img src="{{ url_for('static', filename='assets/diseases/narp.jpg') }}" alt="NARP">
+                        </div>
+                        <div class="disease-text">
+                            <h3>NARP (Neuropathy, Ataxia, and Retinitis Pigmentosa)</h3>
+                            <ul>
+                                <li>🧬 NARP is a mitochondrial disorder caused by MT-ATP6 gene mutations, disrupting energy production.</li>
+                                <li>🦵 It leads to nerve damage, muscle weakness, and coordination issues (ataxia).</li>
+                                <li>👁️ Progressive vision loss occurs due to retinitis pigmentosa.</li>
+                                <li>🧒 Symptoms appear in childhood or early adulthood and vary in severity.</li>
+                            </ul>
+                            
+                              
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation Buttons -->
+                <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1)">&#10095;</button>
+                <!-- Dots -->
+                <div class="dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script>
+        // JavaScript for slideshow
+        const images = document.querySelectorAll('.slideshow-image');
+        let currentIndex = 0;
+
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 20000); // Change image every 20 seconds
+
+        // JavaScript to display the chosen file name
+        function showFileName(input) {
+            const fileName = input.files[0] ? input.files[0].name : "No file chosen";
+            document.getElementById("file-name").textContent = fileName;
+        }
+
+        // JavaScript for neurological disorders slideshow
+        const slides = document.querySelectorAll('.disease-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function changeSlide(step) {
+            currentIndex = (currentIndex + step + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function currentSlide(index) {
+            currentIndex = index - 1;
+            showSlide(currentIndex);
+        }
+
+        setInterval(() => {
+            changeSlide(1);
+        }, 20000); // Change slide every 20 seconds
+    </script>
 </body>
 </html>
