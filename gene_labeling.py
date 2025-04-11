@@ -9,18 +9,18 @@ def label_gene_regions(wild_aligned, mutated_aligned):
 
     # Build position mapping from reference (ungapped) to aligned wild-type
     genome_pos = 0
-    alignment_index_map = {}  # Maps actual mtDNA positions to aligned sequence index
+    alignment_index_map = {}  
 
     for i, base in enumerate(wild_aligned):
         if base != "-":
             genome_pos += 1
-            alignment_index_map[genome_pos] = i  # mtDNA position => index in aligned sequence
+            alignment_index_map[genome_pos] = i  
 
     for gene, (start, end) in gene_locus.items():
         # Get the correct aligned slice for this gene
         if start in alignment_index_map and end in alignment_index_map:
             aligned_start = alignment_index_map[start]
-            aligned_end = alignment_index_map[end] + 1  # +1 to include the end position
+            aligned_end = alignment_index_map[end] + 1  
 
             wild_gene_seq = wild_aligned[aligned_start:aligned_end]
             mutated_gene_seq = mutated_aligned[aligned_start:aligned_end]

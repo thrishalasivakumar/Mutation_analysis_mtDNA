@@ -11,7 +11,7 @@ app = Flask(__name__)
 with open("original_mtDNA/original_mtdna.fasta", "r") as f:
     wild_seq = "".join(line.strip() for line in f if not line.startswith(">"))
 
-print(f"✅ Wild-type sequence loaded. First 50 bases: {wild_seq[:50]}...\n")
+print(f"Wild-type sequence loaded. First 50 bases: {wild_seq[:50]}...\n")
 
 # Load reference gene locus positions
 with open("mt_locus.json") as f:
@@ -19,7 +19,7 @@ with open("mt_locus.json") as f:
 
 # Initialize the Graph for disease prediction
 graph = Graph()
-graph.load_from_csv("mito.csv")  # Ensure mito.csv is present in the same directory
+graph.load_from_csv("mito.csv")  
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -38,7 +38,7 @@ def home():
         wild_aligned, mutated_aligned, global_score = global_alignment(wild_seq, mutated_seq)
         print(f"✅ Global Alignment Complete. Score: {global_score}\n")
 
-        # Identify gene regions
+        # Identify gene regions - Gene labeling 
         labeled_sequences = label_gene_regions(wild_aligned, mutated_aligned)
 
         # Perform local alignment (Smith-Waterman) for all loci
@@ -57,7 +57,7 @@ def home():
             mutations = []
             for i, (a, b) in enumerate(zip(local_aligned_seq1, local_aligned_seq2)):
                 if a != b:
-                    position = gene_locus[locus][0] + i  # Adjust position to match genome
+                    position = gene_locus[locus][0] + i  
                     if a == "-":
                         mutation = f"m.{position}_{position+1}ins{b}"
                     elif b == "-":
@@ -80,8 +80,7 @@ def home():
             print(f"✅ Local Alignment Complete for {locus}. Score: {local_score}, Mutations: {num_mutations}")
             print(f"🧬 Detected Mutations: {mutations}\n")
 
-        # Predict diseases for ALL mutations (no top allele nonsense)
-        predicted_diseases = set()
+        disease_to_mutations = {}
 
         print("🔍 Checking all mutations in graph...\n")
         for mutation in all_mutations:
@@ -90,11 +89,12 @@ def home():
                 paths = bfs_locus_to_disease(graph.graph, mutation)
                 for path in paths:
                     if len(path) > 1:
-                        predicted_diseases.add(path[-1])  # disease at the end
+                        disease = path[-1]
+                        if disease not in disease_to_mutations:
+                            disease_to_mutations[disease] = []
+                        disease_to_mutations[disease].append(mutation)
             else:
                 print(f"❌ {mutation} not found in graph.")
-
-        print(f"⚠️ Final Predicted Diseases: {predicted_diseases}")
 
         return render_template("result.html",
                                global_score=global_score,
@@ -102,7 +102,7 @@ def home():
                                aligned_seq2=mutated_aligned,
                                local_results=local_results,
                                mutation_impact=mutation_impact,
-                               predicted_diseases=list(predicted_diseases),
+                               disease_to_mutations=disease_to_mutations,
                                all_mutations=all_mutations)
 
     return render_template("index.html")
